@@ -69,7 +69,7 @@ public extension HandSuiteTools {
         }
         @available(visionOS 2.0, *)
         @MainActor
-        private static func addMetallicBall(to anchor: AnchorEntity) {
+        public static func addMetallicBall(to anchor: AnchorEntity) {
             let sphere = MeshResource.generateSphere(radius: 0.005)
             let material = SimpleMaterial(color: .blue, isMetallic: false)
             let sphereEntity = ModelEntity(mesh: sphere, materials: [material])
