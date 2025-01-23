@@ -67,10 +67,14 @@ public extension Hand {
                 if let skeleton = anchor.handSkeleton?.joint(joint.skeleton),
                    skeleton.isTracked {
                     let matrix = matrix_multiply(anchor.originFromAnchorTransform, skeleton.anchorFromJointTransform)
-                    let trasform = Transform(matrix: matrix)
-                    joint.setModelTransform(trasform)
+                    let transform = Transform(matrix: matrix)
+                    joint.setModelTransform(transform)
                 }
             }
+        }
+        
+        public func getJoint(named name: Hand.Joint.Name) -> Joint? {
+            return self.joints[name]
         }
 
         public func getCurlness() async -> Float {
