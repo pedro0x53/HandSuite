@@ -19,10 +19,11 @@ public extension HandSuiteTools {
         @MainActor
         public init(chirality: HandSuiteTools.Chirality = .either,
                     direction: HandSuiteTools.Direction = .any,
-             _ description: Set<HandSuiteTools.FingerDescription>) {
+                    _ description: Set<HandSuiteTools.FingerDescription>,
+                    jointComparisons: [HandSuiteTools.JointComparison] = []) {
             self.chirality = chirality
             self.direction = direction
-            self.description = .hand(description)
+            self.description = .hand(description, jointComparisons)
             self.recognitionEvents = .init()
         }
     }
