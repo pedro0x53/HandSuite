@@ -9,12 +9,20 @@ import SwiftUI
 
 public extension HandSuiteTools {
     @Observable
-    class HandGesture: HandSuiteTools.GestureScheme {        
+    class HandGesture: HandSuiteTools.GestureScheme {
+        
+        public var angle: Float?
+        public var pointStart: SIMD3<Float>?
+        public var pointEnd: SIMD3<Float>?
+
         public let chirality:  HandSuiteTools.Chirality
         public let direction: HandSuiteTools.Direction
         public let description: HandSuiteTools.GestureDescription
 
         public var recognitionEvents: HandSuiteTools.HandsEvents
+
+        public var unitVector: SIMD3<Float>?
+        public var palmPoint: SIMD3<Float>?
 
         @MainActor
         public init(chirality: HandSuiteTools.Chirality = .either,

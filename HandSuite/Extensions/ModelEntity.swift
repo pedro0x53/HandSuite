@@ -13,6 +13,14 @@ public extension ModelEntity {
         let simpleMaterial = SimpleMaterial(color: UIColor(hex: hexColor), isMetallic: false)
         return ModelEntity(mesh: .generateSphere(radius: radius), materials: [simpleMaterial])
     }
+    static func addMetallicBall(x: Float, y: Float, z: Float) -> ModelEntity {
+        let sphere = MeshResource.generateCylinder(height: 0.007, radius: 0.004)
+        let material = SimpleMaterial(color: .blue, isMetallic: false)
+        let sphereEntity = ModelEntity(mesh: sphere, materials: [material])
+
+        sphereEntity.position = [x, y, z]
+        return sphereEntity
+    }
 }
 
 extension SIMD3: Sendable {}

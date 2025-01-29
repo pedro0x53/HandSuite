@@ -14,6 +14,12 @@ public extension HandSuiteTools {
         var description: HandSuiteTools.GestureDescription { get }
 
         var wasRecognized: Bool { get }
+        var unitVector: SIMD3<Float>? { get set }
+        var angle: Float? { get set }
+        var palmPoint: SIMD3<Float>? { get set }
+
+        var pointStart: SIMD3<Float>? { get set }
+        var pointEnd: SIMD3<Float>? { get set }
 
         var recognitionEvents: HandSuiteTools.HandsEvents { get set }
 
@@ -42,6 +48,10 @@ public extension HandSuiteTools.GestureScheme {
     func recognize(in hand: Hand) {
         guard case .hand(let fingers, let jointComparisons) = description else { return }
 
+        self.unitVector = hand.isPalmFacingUp()?.axis
+        self.angle = hand.isPalmFacingUp()?.angle
+        self.palmPoint = hand.palm()
+
         let wasRecognized = fingers.allSatisfy { fingerDescription in
             let finger = hand.getFinger(named: fingerDescription.name)
 
@@ -66,7 +76,10 @@ public extension HandSuiteTools.GestureScheme {
                       let secondJointPosition = secondJoint?.getCurrentPosition() else {
                     return false
                 }
-                
+
+                self.pointStart = firstJointPosition
+                self.pointEnd = secondJointPosition
+
                 let calculatedDistance = firstJointPosition.distance(to: secondJointPosition)
                 
                 switch jointComparison.constraint {
