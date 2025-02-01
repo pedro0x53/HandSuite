@@ -14,6 +14,8 @@ public extension HandSuiteTools {
         var description: HandSuiteTools.GestureDescription { get }
 
         var wasRecognized: Bool { get }
+        var palmPoint: (simd_float4?, simd_float4?, HandSuiteTools.Direction?) { get set }
+        var palm: ([simd_quatf?]?, HandSuiteTools.Direction?) { get set }
 
         var recognitionEvents: HandSuiteTools.HandsEvents { get set }
 
@@ -41,6 +43,9 @@ public extension HandSuiteTools.GestureScheme {
 
     func recognize(in hand: Hand) {
         guard case .hand(let fingers, let jointComparisons) = description else { return }
+        
+        self.palmPoint = hand.palm()
+        self.palm = hand.isPalmFacingUp()
 
         let wasRecognized = fingers.allSatisfy { fingerDescription in
             let finger = hand.getFinger(named: fingerDescription.name)

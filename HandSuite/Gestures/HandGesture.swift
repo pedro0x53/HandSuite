@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ARKit
 
 public extension HandSuiteTools {
     @Observable
@@ -15,6 +16,8 @@ public extension HandSuiteTools {
         public let description: HandSuiteTools.GestureDescription
 
         public var recognitionEvents: HandSuiteTools.HandsEvents
+        public var palmPoint: (simd_float4?, simd_float4?, HandSuiteTools.Direction?)
+        public var palm: ([simd_quatf?]?, HandSuiteTools.Direction?)
 
         @MainActor
         public init(chirality: HandSuiteTools.Chirality = .either,

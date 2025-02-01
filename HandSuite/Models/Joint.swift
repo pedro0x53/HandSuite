@@ -15,6 +15,7 @@ public extension Hand {
         public let skeleton: HandSkeleton.JointName
         
         private var currentPosition: SIMD3<Float>?
+        private var currentRotation: simd_quatf?
 
         @MainActor public private(set) var model: ModelEntity?
         public private(set) weak var finger: Hand.Finger?
@@ -39,10 +40,15 @@ public extension Hand {
         public func setModelTransform(_ transform: Transform) {
             self.model?.transform = transform
             self.currentPosition = transform.translation
+            self.currentRotation = transform.rotation
         }
         
         public func getCurrentPosition() -> SIMD3<Float>? {
             return currentPosition
+        }
+        
+        public func getCurrentRotation() -> simd_quatf? {
+            return currentRotation
         }
     }
 }
